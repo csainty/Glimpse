@@ -1,6 +1,4 @@
-﻿using Glimpse.Owin.Extensions;
-using Glimpse.Owin.Middleware;
-using Owin;
+﻿using Owin;
 
 namespace Glimpse.Owin.Sample
 {
@@ -8,13 +6,12 @@ namespace Glimpse.Owin.Sample
     {
         public void Configuration(IAppBuilder app)
         {
-            // app = app.WithGlimpse();
+            Glimpse.Owin.Provider.Enable(app.Properties);
 
-            app.UseType<TailMiddleware>(); // This doesn't seems like it should be here but rather later in the pipeline?
-
+            app.UseFunc(x => Glimpse.Owin.Provider.RequestStart);
             app.Use(typeof(TimestampMiddleware));
-
             app.UseWelcomePage();
+            app.UseFunc(x => Glimpse.Owin.Provider.RequestEnd);
         }
     }
 }

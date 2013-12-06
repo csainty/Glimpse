@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
-using Owin;
 
 namespace Glimpse.Owin.Middleware
 {
     public class OwinFrameworkProvider : IFrameworkProvider
     {
-        private IDictionary<string, object> environment;
-        private IAppBuilder app;
+        private readonly IDataStore serverProperties;
+        private readonly IDictionary<string, object> environment;
 
-        public OwinFrameworkProvider(IDictionary<string, object> environment, IAppBuilder app)
+        public OwinFrameworkProvider(IDataStore serverProperties, IDictionary<string, object> environment)
         {
+            this.serverProperties = serverProperties;
             this.environment = environment;
-            this.app = app;
         }
 
-        public IDataStore HttpRequestStore 
+        public IDataStore HttpRequestStore
         {
             get
             {
@@ -34,15 +33,15 @@ namespace Glimpse.Owin.Middleware
             }
         }
 
-        public IDataStore HttpServerStore 
+        public IDataStore HttpServerStore
         {
             get
             {
-                return new DictionaryDataStoreAdapter((Dictionary<string, object>)app.Properties);
+                return this.serverProperties;
             }
         }
 
-        public object RuntimeContext 
+        public object RuntimeContext
         {
             get { return environment; }
         }
