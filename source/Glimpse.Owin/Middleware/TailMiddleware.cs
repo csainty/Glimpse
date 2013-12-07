@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
+using Glimpse.Owin.Framework;
 
 namespace Glimpse.Owin.Middleware
 {

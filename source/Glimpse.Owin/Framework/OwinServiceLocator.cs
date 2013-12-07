@@ -2,9 +2,9 @@
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
 
-namespace Glimpse.Owin.Middleware
+namespace Glimpse.Owin.Framework
 {
-    public class OwinServiceLocator : IServiceLocator
+    internal class OwinServiceLocator : IServiceLocator
     {
         private readonly IDataStore serverProperties;
         private readonly IDictionary<string, object> environment;

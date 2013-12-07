@@ -2,9 +2,9 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Glimpse.Owin.Middleware
+namespace Glimpse.Owin.Filters
 {
-    public class PreBodyTagInsertionStream : Stream
+    internal class PreBodyTagInsertionStream : Stream
     {
         private const string BodyClosingTag = "</body>";
 

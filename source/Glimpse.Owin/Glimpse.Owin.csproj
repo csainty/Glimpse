@@ -41,13 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Middleware\OwinRequestMetadata.cs" />
-    <Compile Include="Middleware\PreBodyTagInsertionStream.cs" />
-    <Compile Include="OwinResourceEndpointConfiguration.cs" />
+    <Compile Include="Framework\OwinRequestMetadata.cs" />
+    <Compile Include="Filters\PreBodyTagInsertionStream.cs" />
+    <Compile Include="Framework\OwinResourceEndpointConfiguration.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="Middleware\HeadMiddleware.cs" />
-    <Compile Include="Middleware\OwinFrameworkProvider.cs" />
-    <Compile Include="Middleware\OwinServiceLocator.cs" />
+    <Compile Include="Framework\OwinFrameworkProvider.cs" />
+    <Compile Include="Framework\OwinServiceLocator.cs" />
     <Compile Include="Middleware\TailMiddleware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

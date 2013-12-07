@@ -3,10 +3,11 @@ using System.IO;
 using System.Text;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
+using Glimpse.Owin.Filters;
 
-namespace Glimpse.Owin.Middleware
+namespace Glimpse.Owin.Framework
 {
-    public class OwinFrameworkProvider : IFrameworkProvider
+    internal class OwinFrameworkProvider : IFrameworkProvider
     {
         private readonly IDataStore serverDataStore;
         private readonly IDataStore requestDataStore;

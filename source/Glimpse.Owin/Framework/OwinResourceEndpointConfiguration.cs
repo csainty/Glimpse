@@ -4,7 +4,7 @@ using System.Text;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
 
-namespace Glimpse.Owin
+namespace Glimpse.Owin.Framework
 {
     internal class OwinResourceEndpointConfiguration : ResourceEndpointConfiguration
     {
