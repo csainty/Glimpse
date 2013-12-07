@@ -6,12 +6,13 @@ namespace Glimpse.Owin.Sample
     {
         public void Configuration(IAppBuilder app)
         {
+            // TODO: Clean this up, UseFunc is awful and UseWelcomePage is aborting the chain?
             Glimpse.Owin.Provider.Enable(app.Properties);
-
-            app.UseFunc(x => Glimpse.Owin.Provider.RequestStart);
+            app.UseErrorPage();
+            app.UseFunc(x => async y => { await Glimpse.Owin.Provider.RequestStart(y); await x(y); });
             app.Use(typeof(TimestampMiddleware));
+            app.UseFunc(x => async y => { await Glimpse.Owin.Provider.RequestEnd(y); await x(y); });
             app.UseWelcomePage();
-            app.UseFunc(x => Glimpse.Owin.Provider.RequestEnd);
         }
     }
 }

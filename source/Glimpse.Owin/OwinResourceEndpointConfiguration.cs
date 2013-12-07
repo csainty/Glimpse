@@ -1,14 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
 
 namespace Glimpse.Owin
 {
     internal class OwinResourceEndpointConfiguration : ResourceEndpointConfiguration
     {
-        protected override string GenerateUriTemplate(string resourceName, string baseUri, IEnumerable<Core.Extensibility.ResourceParameterMetadata> parameters, Core.Extensibility.ILogger logger)
+        protected override string GenerateUriTemplate(string resourceName, string baseUri, IEnumerable<Core.Extensibility.ResourceParameterMetadata> parameters, ILogger logger)
         {
-            throw new NotImplementedException();
+            // TODO: Make baseUri relative to path
+            var stringBuilder = new StringBuilder(string.Format(@"{0}?n={1}", baseUri, resourceName));
+
+            var requiredParams = parameters.Where(p => p.IsRequired);
+            foreach (var parameter in requiredParams)
+            {
+                stringBuilder.Append(string.Format("&{0}={{{1}}}", parameter.Name, parameter.Name));
+            }
+
+            var optionalParams = parameters.Except(requiredParams).Select(p => p.Name).ToArray();
+
+            // Format based on Form-style query continuation from RFC6570: http://tools.ietf.org/html/rfc6570#section-3.2.9
+            if (optionalParams.Any())
+            {
+                stringBuilder.Append(string.Format("{{&{0}}}", string.Join(",", optionalParams)));
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

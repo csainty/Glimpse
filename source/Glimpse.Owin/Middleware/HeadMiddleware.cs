@@ -17,7 +17,17 @@ namespace Glimpse.Owin.Middleware
 
         public Task Invoke(IDictionary<string, object> environment)
         {
-            GlimpseRuntime.Instance.BeginRequest(new OwinFrameworkProvider(this.serverDataStore, environment));
+            var provider = new OwinFrameworkProvider(this.serverDataStore, environment);
+            GlimpseRuntime.Instance.BeginRequest(provider);
+
+            var requestPath = (string)environment["owin.RequestPath"];
+            var queryString = (string)environment["owin.RequestQueryString"];
+            if (requestPath.StartsWith(GlimpseRuntime.Instance.Configuration.EndpointBaseUri))
+            {
+                // TODO: Handle resource names
+                GlimpseRuntime.Instance.ExecuteDefaultResource(provider);
+            }
+
             return Task.FromResult(0);
         }
     }

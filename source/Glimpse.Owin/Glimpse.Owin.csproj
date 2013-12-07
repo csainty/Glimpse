@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Middleware\OwinRequestMetadata.cs" />
+    <Compile Include="Middleware\PreBodyTagInsertionStream.cs" />
     <Compile Include="OwinResourceEndpointConfiguration.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="Middleware\HeadMiddleware.cs" />

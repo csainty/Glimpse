@@ -15,7 +15,9 @@ namespace Glimpse.Owin
         {
             serverStore = new DictionaryDataStoreAdapter(properties as IDictionary);
             var config = new GlimpseConfiguration(new OwinResourceEndpointConfiguration(), new ApplicationPersistenceStore(serverStore));
+            config.EndpointBaseUri = "/glimpse.axd";
             config.DefaultRuntimePolicy = RuntimePolicy.On;
+            config.RuntimePolicies.Clear();
 
             GlimpseRuntime.Initialize(config);
             GlimpseRuntime.Instance.Initialize();
@@ -28,7 +30,7 @@ namespace Glimpse.Owin
 
         public static Task RequestEnd(IDictionary<string, object> environment)
         {
-            return new TailMiddleware().Invoke(environment);
+            return new TailMiddleware(serverStore).Invoke(environment);
         }
     }
 }
